@@ -1,103 +1,85 @@
-import Image from "next/image";
+// src/app/page.tsx
+import Sidebar from '@/app/components/Sidebar';
+import Image from 'next/image';
+import TimetableCard from './components/TimeTableCard';
+import StudyPalCard from './components/StudyPalCard';
+import LibraryCard from './LibraryCard';
+import ForumCard from './components/ForumCard';
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Africa/Lagos',
+  };
+
+  const formattedTodayDate = today.toLocaleDateString('en-US', options);
+  const formattedTomorrowDate = tomorrow.toLocaleDateString('en-US', options);
+
+  const createScheduledTime = (date: Date, hours: number, minutes: number): Date => {
+    const d = new Date(date);
+    d.setHours(hours, minutes, 0, 0); 
+    return d;
+  };
+
+  const todayEntry = {
+    time: createScheduledTime(today, 10, 0), 
+    courseTitle: 'Calculus I',
+    courseCode: 'MAT 201',
+    profilePhotos: ['/avatar-1.png', '/avatar-2.png'],
+  };
+
+  const tomorrowEntry = {
+    time: createScheduledTime(tomorrow, 9, 0),
+    courseTitle: 'Linear Algebra',
+    courseCode: 'MAT 202',
+    profilePhotos: ['/avatar-2.png'],
+  };
+
+  return (
+    <div className="flex">
+      <Sidebar />
+
+      <main className="flex-1 ml-64 p-8">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-[#2C2B54]">Dashboard</h1>
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <Image
+                src="/bell.svg"
+                alt="Notifications"
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
+            </div>
+            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+              <Image src="/profile-placeholder.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <TimetableCard title="Today's Timetable" date={formattedTodayDate} entry={todayEntry} />
+          <TimetableCard title="Tomorrow's Timetable" date={formattedTomorrowDate} entry={tomorrowEntry} />
+          <div className='col-span-full'>
+            <StudyPalCard />
+          </div>
+          <div className='col-span-full'>
+          <LibraryCard />
+          </div>
+          <div className='col-span-full'>
+          <ForumCard />
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
