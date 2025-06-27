@@ -3,7 +3,7 @@ import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
 import TimetableCard from './components/TimeTableCard';
 import StudyPalCard from './components/StudyPalCard';
-import LibraryCard from './LibraryCard';
+import LibraryCard from './components/LibraryCard';
 import ForumCard from './components/ForumCard';
 
 
