@@ -1,5 +1,5 @@
 // src/app/page.tsx
-import Sidebar from '@/app/components/Sidebar';
+import UserSidebar from '@/app/components/UserSidebar';
 import Image from 'next/image';
 import TimetableCard from './components/TimeTableCard';
 import StudyPalCard from './components/StudyPalCard';
@@ -44,7 +44,7 @@ export default function Home() {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <UserSidebar />
 
       <main className="flex-1 ml-64 p-8">
         <div className="flex justify-between items-center mb-8">

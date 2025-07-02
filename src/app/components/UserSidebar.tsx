@@ -1,4 +1,4 @@
-// src/components/Sidebar.tsx
+// src/components/USerSidebar.tsx
 "use client"
 
 import Link from 'next/link';
@@ -12,7 +12,7 @@ interface NavItem {
   href: string;
 }
 
-const Sidebar = () => {
+const UserSidebar = () => {
   const pathname = usePathname(); 
 
   const navItems: NavItem[] = [
@@ -29,7 +29,7 @@ const Sidebar = () => {
       <div>
         <div className="flex items-center mb-10 pl-2">
           <img src="/chat-left-dots-fill.png" alt="Preppal Logo" className="h-8 mr-2" />
-          <span className="text-3xl font-bold">PrepPal</span>
+          <span className="text-3xl font-bold">PrePal</span>
         </div>
 
         <nav>
@@ -65,4 +65,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default UserSidebar;
