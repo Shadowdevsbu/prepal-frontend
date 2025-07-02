@@ -1,4 +1,4 @@
-// src/components/AdminSidebar.tsx
+// src/app/components/AdminSidebar.tsx
 "use client"
 
 import Link from 'next/link';
