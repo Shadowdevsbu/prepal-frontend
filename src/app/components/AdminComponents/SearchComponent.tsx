@@ -21,10 +21,8 @@ const SearchComponent: FC = () => {
     setShowSuggestions(false);
   };
 
-  const filteredSuggestions = forums.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSuggestions = forums.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const pathname = usePathname();

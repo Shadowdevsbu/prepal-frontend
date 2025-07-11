@@ -8,10 +8,3 @@ export type Forum = {
 export type ForumButtonProps = {
   buttonType: 'approve' | 'reject';
 };
-export type SearchComponentProps = {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  showSuggestions: boolean;
-  setShowSuggestions: (value: boolean) => void;
-  forums: Forum[];
-};

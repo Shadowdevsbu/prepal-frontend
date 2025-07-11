@@ -1,4 +1,5 @@
 import { Forum } from '@/app/admin/manage-forums/types';
+import { Library } from '@/app/admin/manage-library/types';
 
 export const forums: Forum[] = [
   {
@@ -20,5 +21,28 @@ export const forums: Forum[] = [
     description:
       'Database Design teaches you how to structure data efficiently and visually represent it using Entity-Relationship Diagrams (ERDs). ERDs help map out entities, relationships, and attributes to build a solid foundation for any database system.',
     image: '/database.jpg',
+  },
+];
+
+export const library: Library[] = [
+  {
+    id: 1,
+    name: '400 lvl',
+    link: '/admin/manage-library/400-level',
+  },
+  {
+    id: 2,
+    name: '300 lvl',
+    link: '/admin/manage-library/300-level',
+  },
+  {
+    id: 3,
+    name: '200 lvl',
+    link: '/admin/manage-library/200-level',
+  },
+  {
+    id: 4,
+    name: '100 lvl',
+    link: '/admin/manage-library/100-level',
   },
 ];
