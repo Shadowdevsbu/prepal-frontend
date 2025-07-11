@@ -1,7 +1,7 @@
 // src/app/timetable/page.tsx
 "use client"; 
 
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/UserSidebar';
 import Image from 'next/image';
 import { MdAdd } from 'react-icons/md'; 
 import React, { useState, useEffect, useCallback } from 'react'; 

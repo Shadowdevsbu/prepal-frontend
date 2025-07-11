@@ -1,8 +1,8 @@
-// src/components/USerSidebar.tsx
+// src/app/components/AdminSidebar.tsx
 "use client"
 
 import Link from 'next/link';
-import { MdDashboard, MdCalendarToday, MdPeople, MdForum, MdAccountCircle, MdHelp, MdDescription } from 'react-icons/md';
+import { MdDashboard, MdPeople, MdForum, MdHelp, MdDescription, MdSettings, MdReport } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
@@ -12,24 +12,24 @@ interface NavItem {
   href: string;
 }
 
-const UserSidebar = () => {
+const AdminSidebar = () => {
   const pathname = usePathname(); 
 
   const navItems: NavItem[] = [
-    { name: 'Dashboard', icon: MdDashboard, href: '/' },
-    { name: 'Timetable', icon: MdCalendarToday, href: '/timetable' },
-    { name: 'Study pals', icon: MdPeople, href: '/studypals' },
-    { name: 'Library', icon: MdDescription, href: '/library' },
-    { name: 'Forums', icon: MdForum, href: '/forums' },
-    { name: 'Profile', icon: MdAccountCircle, href: '/profile' },
+    { name: 'Dashboard', icon: MdDashboard, href: '/admin' },
+    { name: 'Manage Users', icon: MdPeople, href: '/admin/manage-users' },
+    { name: 'Manage Forums', icon: MdForum, href: '/admin/manage-forums' },
+    { name: 'Manage Library', icon: MdDescription, href: '/admin/manage-library' },
+    { name: 'Reports', icon: MdReport, href: '/admin/reports' },
+    { name: 'Settings', icon: MdSettings, href: '/admin/settings' },
   ];
 
   return (
     <aside className="w-64 bg-purple-1 h-screen p-6 flex flex-col justify-between fixed left-0 top-0 text-white shadow-lg z-10">
       <div>
         <div className="flex items-center mb-10 pl-2">
-          <img src="/chat-left-dots-fill.png" alt="Preppal Logo" className="h-8 mr-2" />
-          <span className="text-3xl font-bold">PrePal</span>
+          <img src="/chat-left-dots-fill.png" alt="Prepal Logo" className="h-8 mr-2" />
+          <span className="text-3xl font-bold">PrepPal</span>
         </div>
 
         <nav>
@@ -65,4 +65,4 @@ const UserSidebar = () => {
   );
 };
 
-export default UserSidebar;
+export default AdminSidebar;

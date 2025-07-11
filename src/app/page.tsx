@@ -1,13 +1,11 @@
 // src/app/page.tsx
-"use client"; // Make it a client component
-
 import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
 import TimetableCard from './components/TimeTableCard';
 import StudyPalCard from './components/StudyPalCard';
 import LibraryCard from './components/LibraryCard';
 import ForumCard from './components/ForumCard';
-import { useState } from 'react'; // Import useState
+import { useState } from 'react'; 
 
 // Define the type for the timetable entries managed in state
 interface DashboardTimetableEntry {
