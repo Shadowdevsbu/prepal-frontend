@@ -1,7 +1,9 @@
 // src/app/admin/layout.tsx
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import AdminSidebar from '@/app/components/AdminComponents/AdminSidebar';
+
+import Image from 'next/image';
+
 import SearchComponent from '../components/AdminComponents/SearchComponent';
 
 export const metadata: Metadata = {

@@ -1,11 +1,19 @@
 // src/app/page.tsx
-import UserSidebar from '@/app/components/UserSidebar';
+import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
 import TimetableCard from './components/TimeTableCard';
 import StudyPalCard from './components/StudyPalCard';
 import LibraryCard from './components/LibraryCard';
 import ForumCard from './components/ForumCard';
+import { useState } from 'react'; 
 
+// Define the type for the timetable entries managed in state
+interface DashboardTimetableEntry {
+  time: Date;
+  courseTitle: string;
+  courseCode: string;
+  profilePhotos: string[];
+}
 
 export default function Home() {
   const today = new Date();
@@ -28,23 +36,35 @@ export default function Home() {
     return d;
   };
 
-  const todayEntry = {
+  // State for today's and tomorrow's timetable entries, allowing them to be null
+  const [todayEntry, setTodayEntry] = useState<DashboardTimetableEntry | null>({
     time: createScheduledTime(today, 10, 0), 
     courseTitle: 'Calculus I',
     courseCode: 'MAT 201',
-    profilePhotos: ['/avatar-1.png', '/avatar-2.png'],
-  };
 
-  const tomorrowEntry = {
+    profilePhotos: ['/ps.png', '/aj.png'], 
+  });
+
+  const [tomorrowEntry, setTomorrowEntry] = useState<DashboardTimetableEntry | null>({
     time: createScheduledTime(tomorrow, 9, 0),
     courseTitle: 'Linear Algebra',
     courseCode: 'MAT 202',
-    profilePhotos: ['/avatar-2.png'],
+
+    profilePhotos: ['/aj.png'], 
+  });
+
+
+  const handleDeleteDashboardTimetable = (id: string) => {
+    if (id === 'today') {
+      setTodayEntry(null);
+    } else if (id === 'tomorrow') {
+      setTomorrowEntry(null);
+    }
   };
 
   return (
     <div className="flex">
-      <UserSidebar />
+      <Sidebar />
 
       <main className="flex-1 ml-64 p-8">
         <div className="flex justify-between items-center mb-8">
@@ -58,25 +78,42 @@ export default function Home() {
                 height={24}
                 className="w-6 h-6"
               />
+              {/* Assuming there's a notification count, uncomment this if needed */}
+              {/* <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                5
+              </span> */}
             </div>
+           
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-              <Image src="/profile-placeholder.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" />
+              <Image src="/ps.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" /> 
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-          <TimetableCard title="Today's Timetable" date={formattedTodayDate} entry={todayEntry} />
-          <TimetableCard title="Tomorrow's Timetable" date={formattedTomorrowDate} entry={tomorrowEntry} />
+          <TimetableCard
+            id="today" // Unique ID for this specific card
+            title="Today's Timetable"
+            date={formattedTodayDate}
+            entry={todayEntry} // Pass the state variable
+            onDelete={handleDeleteDashboardTimetable} // Pass the delete handler
+          />
+          <TimetableCard
+            id="tomorrow" // Unique ID for this specific card
+            title="Tomorrow's Timetable"
+            date={formattedTomorrowDate}
+            entry={tomorrowEntry} // Pass the state variable
+            onDelete={handleDeleteDashboardTimetable} // Pass the delete handler
+          />
           <div className='col-span-full'>
             <StudyPalCard />
           </div>
           <div className='col-span-full'>
-          <LibraryCard />
+            <LibraryCard />
           </div>
           <div className='col-span-full'>
-          <ForumCard />
+            <ForumCard />
           </div>
         </div>
       </main>
