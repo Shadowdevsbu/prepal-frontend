@@ -2,20 +2,21 @@
 
 import React from 'react';
 import Link from 'next/link';
-import {
-  HiViewGrid,
-  HiUsers,
-} from 'react-icons/hi';
-import { FaRegCalendar, FaRegFileAlt } from 'react-icons/fa';
-import { IoMdChatboxes, IoMdCheckboxOutline } from 'react-icons/io';
-import { IoFilterSharp } from 'react-icons/io5';
-import { CgProfile } from 'react-icons/cg';
-import { PiHeadsetBold } from 'react-icons/pi';
-import { GoBellFill } from 'react-icons/go';
-import { BsChatLeftDots } from 'react-icons/bs';
+import Sidebar from '@/app/components/Sidebar';
+import { MdFilterList } from 'react-icons/md';
+import { TbCheckbox } from 'react-icons/tb';
+import { HiBell } from 'react-icons/hi';
+
+interface Notification {
+  id: number;
+  avatar: string;
+  name: string;
+  time: string;
+  color: string;
+}
 
 export default function NotificationsPage() {
-  const notifications = [
+  const notifications: Notification[] = [
     {
       id: 1,
       avatar: 'E',
@@ -47,99 +48,59 @@ export default function NotificationsPage() {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div
-        className="w-64 text-white relative"
-        style={{ background: 'linear-gradient(to bottom, #6D6BA7, #5A5890)' }}
-      >
-        {/* Logo */}
-        <div className="p-6">
-          <div className="flex items-center gap-3">
-            <BsChatLeftDots className="w-5 h-5" />
-            <span className="text-xl font-bold">PrepPal</span>
-          </div>
-        </div>
+    <div className="flex">
+      <Sidebar />
 
-        {/* Navigation */}
-        <nav className="p-4 space-y-2">
-          {[
-            { icon: <HiViewGrid className="w-5 h-5" />, label: 'Dashboard' },
-            { icon: <FaRegCalendar className="w-5 h-5" />, label: 'Timetable' },
-            { icon: <HiUsers className="w-5 h-5" />, label: 'Study pals' },
-            { icon: <FaRegFileAlt className="w-5 h-5" />, label: 'Library' },
-            { icon: <IoMdChatboxes className="w-5 h-5" />, label: 'Forums' },
-            { icon: <CgProfile className="w-5 h-5" />, label: 'Profile' },
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer hover:bg-white/10 text-purple-200 hover:text-white"
-            >
-              {item.icon}
-              <span className="font-medium">{item.label}</span>
-            </div>
-          ))}
-        </nav>
-
-        {/* Help Icon */}
-        <div className="absolute bottom-6 left-6">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 text-white">
-            <PiHeadsetBold className="w-5 h-5" />
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <main className="flex-1 ml-64 bg-gray-100 min-h-screen p-6">
         {/* Header */}
-        <div className="bg-gray-100 px-6 py-4 flex items-center justify-end">
-          <div className="flex items-center gap-4">
-            <Link href="/notifications">
-              <GoBellFill className="w-6 h-6 text-[#6D6BA7] cursor-pointer" />
-            </Link>
-            <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">
-              K
-            </div>
+        <div className="flex justify-end items-center mb-6">
+          <Link href="/notifications">
+            <HiBell className="w-6 h-6 text-[#6D6BA7]" />
+          </Link>
+         <div className="ml-4 w-8 h-8 rounded-full overflow-hidden">
+         <img
+           src="/ps.png"
+           alt="Profile"
+            className="w-full h-full object-cover rounded-full"
+          />
           </div>
         </div>
 
         {/* Notifications Section */}
-        <div className="flex-1 p-6">
-          <div className="max-w-2xl bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mx-auto">
-            {/* Top Bar */}
-            <div className="px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <IoFilterSharp className="text-[#6D6BA7] w-5 h-5" />
-                <h1 className="text-lg font-semibold text-gray-800">Notifications</h1>
-              </div>
-              <button className="flex items-center space-x-2 text-sm text-black hover:text-[#444]">
-                <span className="font-semibold text-black">Mark all as read</span>
-                <IoMdCheckboxOutline className="w-4 h-4 text-[#6D6BA7]" />
-              </button>
+        <div className="max-w-2xl bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mx-auto">
+          {/* Top Bar */}
+          <div className="px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <MdFilterList className="text-[#6D6BA7] w-5 h-5" />
+              <h1 className="text-lg font-semibold text-gray-800">Notifications</h1>
             </div>
+            <button className="flex items-center space-x-2 text-sm text-black hover:text-[#444]">
+              <span className="font-semibold text-black">Mark all as read</span>
+              <TbCheckbox className="w-4 h-4 text-[#6D6BA7]" />
+            </button>
+          </div>
 
-            {/* Notification List */}
-            <div className="space-y-6 px-4 pb-6">
-              {notifications.map((item) => (
+          {/* Notification List */}
+          <div className="space-y-6 px-4 pb-6">
+            {notifications.map((item) => (
+              <div
+                key={item.id}
+                className="bg-[#6D6BA7] rounded-4xl p-4 flex items-start gap-4"
+              >
                 <div
-                  key={item.id}
-                  className="bg-[#6D6BA7] rounded-4xl p-4 flex items-start gap-4"
+                  className={`${item.color} w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold`}
                 >
-                  <div
-                    className={`${item.color} w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold`}
-                  >
-                    {item.avatar}
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">{item.name}</p>
-                    <p className="text-sm text-white">{item.time}</p>
-                  </div>
+                  {item.avatar}
                 </div>
-              ))}
-            </div>
+                <div>
+                  <p className="text-white font-medium">{item.name}</p>
+                  <p className="text-sm text-white">{item.time}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
