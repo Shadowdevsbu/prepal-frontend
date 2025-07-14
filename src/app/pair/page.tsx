@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Sidebar from '@/app/components/Sidebar';
-import { HiBell } from 'react-icons/hi';
-import { IoShareSocialOutline } from 'react-icons/io5';
+import Sidebar from '@/app/components/Sidebar'; 
+import { MdNotifications, MdShare } from 'react-icons/md';
 
 export default function PairPage() {
   const [isPairing, setIsPairing] = useState(false);
@@ -15,7 +14,7 @@ export default function PairPage() {
     setTimeout(() => {
       setIsPairing(false);
       setHasPaired(true);
-    }, 2000);
+    }, 2000); 
   };
 
   const handleCancel = () => {
@@ -25,8 +24,7 @@ export default function PairPage() {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <Sidebar />
+   <Sidebar />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col ml-64">
@@ -34,9 +32,10 @@ export default function PairPage() {
         <div className="bg-gray-100 px-6 py-4 flex items-center justify-end">
           <div className="flex items-center gap-4">
             <Link href="/notifications">
-              <HiBell className="w-6 h-6 text-[#6D6BA7] cursor-pointer" />
+             <MdNotifications className="w-6 h-6 text-[#6D6BA7] cursor-pointer" />
             </Link>
             <div className="w-10 h-10 rounded-full overflow-hidden">
+              {/* Ensure '/ps.png' path is correct and the image exists */}
               <img src="/ps.png" alt="Profile" className="w-full h-full object-cover rounded-full" />
             </div>
           </div>
@@ -50,7 +49,8 @@ export default function PairPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold text-gray-900">Pair with partner</h2>
-                  <IoShareSocialOutline className="w-6 h-6 text-gray-500 hover:text-[#6D6BA7] transition-colors cursor-pointer" />
+                  {/* Using MdShare as per team lead's request for react-icons/md */}
+                  <MdShare className="w-6 h-6 text-gray-500 hover:text-[#6D6BA7] transition-colors cursor-pointer" />
                 </div>
 
                 {/* Avatars and dots */}
@@ -58,6 +58,7 @@ export default function PairPage() {
                   {/* You (user) */}
                   <div className="text-center">
                     <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl mb-3 overflow-hidden">
+                      {/* Ensure '/ps.png' path is correct and the image exists */}
                       <img src="/ps.png" alt="You" className="w-full h-full object-cover" />
                     </div>
                   </div>
@@ -76,7 +77,7 @@ export default function PairPage() {
                   {/* Paired partner */}
                   <div className="text-center">
                     <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl mb-3">
-                      EA
+                      EA {/* Assuming 'EA' is a placeholder for a paired partner's avatar */}
                     </div>
                   </div>
                 </div>
@@ -106,7 +107,7 @@ export default function PairPage() {
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
   );
 }

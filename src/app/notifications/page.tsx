@@ -1,11 +1,9 @@
-'use client';
+'use client'; 
 
 import React from 'react';
 import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar';
-import { MdFilterList } from 'react-icons/md';
-import { TbCheckbox } from 'react-icons/tb';
-import { HiBell } from 'react-icons/hi';
+import { MdFilterList, MdNotifications, MdCheckBox } from 'react-icons/md';
 
 interface Notification {
   id: number;
@@ -52,17 +50,16 @@ export default function NotificationsPage() {
       <Sidebar />
 
       <main className="flex-1 ml-64 bg-gray-100 min-h-screen p-6">
-        {/* Header */}
         <div className="flex justify-end items-center mb-6">
           <Link href="/notifications">
-            <HiBell className="w-6 h-6 text-[#6D6BA7]" />
+            <MdNotifications className="w-6 h-6 text-[#6D6BA7]" />
           </Link>
-         <div className="ml-4 w-8 h-8 rounded-full overflow-hidden">
-         <img
-           src="/ps.png"
-           alt="Profile"
-            className="w-full h-full object-cover rounded-full"
-          />
+          <div className="ml-4 w-8 h-8 rounded-full overflow-hidden">
+            <img
+              src="/ps.png"
+              alt="Profile"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
         </div>
 
@@ -76,7 +73,7 @@ export default function NotificationsPage() {
             </div>
             <button className="flex items-center space-x-2 text-sm text-black hover:text-[#444]">
               <span className="font-semibold text-black">Mark all as read</span>
-              <TbCheckbox className="w-4 h-4 text-[#6D6BA7]" />
+              <MdCheckBox className="w-4 h-4 text-[#6D6BA7]" />
             </button>
           </div>
 
@@ -85,7 +82,7 @@ export default function NotificationsPage() {
             {notifications.map((item) => (
               <div
                 key={item.id}
-                className="bg-[#6D6BA7] rounded-4xl p-4 flex items-start gap-4"
+                className="bg-[#6D6BA7] rounded-3xl p-4 flex items-start gap-4"
               >
                 <div
                   className={`${item.color} w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold`}

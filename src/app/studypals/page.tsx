@@ -1,10 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import Sidebar from '@/app/components/Sidebar';
-import { HiBell } from 'react-icons/hi';
-import { IoMdSearch } from 'react-icons/io';
-import { FaRegTrashAlt } from 'react-icons/fa';
+import Sidebar from '@/app/components/Sidebar'; 
+import { MdNotifications, MdSearch, MdDelete } from 'react-icons/md';
 
 export default function StudyPalsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,6 +26,7 @@ export default function StudyPalsPage() {
 
   return (
     <div className="flex">
+      {/* Ensure the Sidebar component is correctly implemented and its path is valid */}
       <Sidebar />
 
       <main className="flex-1 ml-64 p-6 bg-gray-100 min-h-screen">
@@ -45,16 +44,19 @@ export default function StudyPalsPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="bg-transparent focus:outline-none w-full pr-8"
                 />
-                <IoMdSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#6D6BA7]" />
+                {/* Using MdSearch as per team lead's request for react-icons/md */}
+                <MdSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#6D6BA7]" />
               </div>
 
               {/* Notification icon */}
               <a href="/notifications">
-                <HiBell className="w-6 h-6 text-[#6D6BA7] cursor-pointer" />
+                {/* Using MdNotifications as per team lead's request for react-icons/md */}
+                <MdNotifications className="w-6 h-6 text-[#6D6BA7] cursor-pointer" />
               </a>
 
               {/* Profile Image */}
               <div className="w-8 h-8 rounded-full overflow-hidden">
+                {/* Ensure '/ps.png' path is correct and the image exists */}
                 <img
                   src="/ps.png"
                   alt="Profile"
@@ -96,7 +98,8 @@ export default function StudyPalsPage() {
                       className="w-8 h-8 rounded-md bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200 transition"
                       aria-label={`Delete ${pal.name}`}
                     >
-                      <FaRegTrashAlt size={16} />
+                      {/* Using MdDelete as per team lead's request for react-icons/md */}
+                      <MdDelete size={16} />
                     </button>
                   </div>
                 </div>
