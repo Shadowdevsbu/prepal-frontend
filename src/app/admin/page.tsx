@@ -41,7 +41,7 @@
           </div>
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
             <Image
-              src="/profile-placeholder.png"
+              src="/ps.png"
               alt="Profile"
               width={40}
               height={40}

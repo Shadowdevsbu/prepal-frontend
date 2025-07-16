@@ -1,12 +1,12 @@
 // src/app/timetable/page.tsx
 "use client"; 
 
-import Sidebar from '../components/UserSidebar';
+import Sidebar from '../components/Sidebar';
 import Image from 'next/image';
 import { MdAdd } from 'react-icons/md'; 
 import React, { useState, useEffect, useCallback } from 'react'; 
 import TimetableItemCard from '../components/TimetableItemCard'; 
-
+import UserNotificationBell from '@/app/components/UserNotificationBell'; // Import the new component
 
 interface TimetableEntry {
   id: string;
@@ -33,6 +33,9 @@ export default function TimetablePage() {
 
   // State to store the list of timetables
   const [timetables, setTimetables] = useState<TimetableEntry[]>([]);
+
+  // Example for dynamic notification count (can be updated later)
+  const [notificationCount, setNotificationCount] = useState(5); // Hardcoded for now
 
   // Function to load timetables from localStorage
   const loadTimetables = useCallback(() => {
@@ -150,25 +153,16 @@ export default function TimetablePage() {
             Create plan +
           </button>
           <div className="flex items-center space-x-4">
-            <div className="relative">
-              <Image
-                src="/bell.svg"
-                alt="Notifications"
-                width={24}
-                height={24}
-                className="w-6 h-6"
-              />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                5
-              </span>
-            </div>
+            {/* Replaced old bell icon with UserNotificationBell component */}
+            <UserNotificationBell notificationCount={notificationCount} />
+            
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
               <Image src="/ps.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
 
-       
+        
         <div className="transition-opacity duration-500 ease-in-out">
           {displayMode === 'illustration' && (
             <div className="opacity-100 bg-white rounded-xl p-8 flex flex-col items-center justify-center max-w-2xl mx-auto my-auto">

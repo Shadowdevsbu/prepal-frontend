@@ -1,11 +1,14 @@
 // src/app/page.tsx
+"use client"
+
 import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
-import TimetableCard from './components/TimeTableCard';
+import TimetableCard from './components/TimeTableCard'; // Ensure this path is correct based on your file structure (components vs app/components)
 import StudyPalCard from './components/StudyPalCard';
 import LibraryCard from './components/LibraryCard';
-import ForumCard from './components/ForumCard';
+import ForumCard from './components/ForumCard'; // Corrected path based on previous prompt assuming structure, confirm this if it's wrong for you
 import { useState } from 'react'; 
+import UserNotificationBell from '@/app/components/UserNotificationBell'; // Import the new component
 
 // Define the type for the timetable entries managed in state
 interface DashboardTimetableEntry {
@@ -41,7 +44,6 @@ export default function Home() {
     time: createScheduledTime(today, 10, 0), 
     courseTitle: 'Calculus I',
     courseCode: 'MAT 201',
-
     profilePhotos: ['/ps.png', '/aj.png'], 
   });
 
@@ -49,10 +51,11 @@ export default function Home() {
     time: createScheduledTime(tomorrow, 9, 0),
     courseTitle: 'Linear Algebra',
     courseCode: 'MAT 202',
-
     profilePhotos: ['/aj.png'], 
   });
 
+  // Example for dynamic notification count (can be updated later)
+  const [notificationCount, setNotificationCount] = useState(5); // Hardcoded for now
 
   const handleDeleteDashboardTimetable = (id: string) => {
     if (id === 'today') {
@@ -70,20 +73,9 @@ export default function Home() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-[#2C2B54]">Dashboard</h1>
           <div className="flex items-center space-x-4">
-            <div className="relative">
-              <Image
-                src="/bell.svg"
-                alt="Notifications"
-                width={24}
-                height={24}
-                className="w-6 h-6"
-              />
-              {/* Assuming there's a notification count, uncomment this if needed */}
-              {/* <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                5
-              </span> */}
-            </div>
-           
+            {/* Replaced old bell icon with UserNotificationBell component */}
+            <UserNotificationBell notificationCount={notificationCount} />
+            
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
               <Image src="/ps.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" /> 
             </div>
@@ -93,18 +85,18 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           <TimetableCard
-            id="today" // Unique ID for this specific card
+            id="today"
             title="Today's Timetable"
             date={formattedTodayDate}
-            entry={todayEntry} // Pass the state variable
-            onDelete={handleDeleteDashboardTimetable} // Pass the delete handler
+            entry={todayEntry}
+            onDelete={handleDeleteDashboardTimetable}
           />
           <TimetableCard
-            id="tomorrow" // Unique ID for this specific card
+            id="tomorrow"
             title="Tomorrow's Timetable"
             date={formattedTomorrowDate}
-            entry={tomorrowEntry} // Pass the state variable
-            onDelete={handleDeleteDashboardTimetable} // Pass the delete handler
+            entry={tomorrowEntry}
+            onDelete={handleDeleteDashboardTimetable}
           />
           <div className='col-span-full'>
             <StudyPalCard />
