@@ -1,10 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import CloudIcon from '@/app/components/icons/icon.svg';
-import ChatbubblesSharpIcon from '@/app/components/icons/chatbubbles-sharp.svg';
-import CopyIcon from '@/app/components/icons/copy.svg';
-import PlusIcon from '@/app/components/icons/plus.svg';
+import CloudIconSrc from '@/app/components/icons/Icon.svg';
+import ChatbubblesSharpIconSrc from '@/app/components/icons/chatbubbles-sharp.svg';
+import CopyIconSrc from '@/app/components/icons/copy.svg';
+import PlusIconSrc from '@/app/components/icons/plus.svg';
 import Sidebar from '@/app/components/Sidebar';
 import UserNotificationBell from '@/app/components/UserNotificationBell';
 
@@ -35,9 +35,14 @@ export default function InviteToForumPage() {
 
   return (
     <div className="flex h-screen bg-gray-100">
+ 
       <Sidebar />
+
+      
       <div className="flex-1 flex flex-col ml-64">
-        <div className="bg-gray-100 px-6 py-4 flex items-center justify-between">
+        
+        <div className="bg-gray-100 px-6 py-4 flex items-center justify-end">
+
           <button
             className="bg-[#6B69A6] text-white rounded-[10px] font-semibold flex items-center justify-center gap-2 transition-colors hover:brightness-90"
             style={{
@@ -55,43 +60,52 @@ export default function InviteToForumPage() {
             >
               Start a Forum
             </span>
-            <PlusIcon className="w-6 h-6" />
+            <Image 
+              src={PlusIconSrc} 
+              alt="Plus" 
+              width={24} 
+              height={24}
+              className="w-6 h-6"
+            />
           </button>
+          
           <div className="flex items-center gap-4">
+           
             <UserNotificationBell notificationCount={notificationCount} />
+            
             <div className="w-10 h-10 rounded-full overflow-hidden">
-              <Image
-                src="/ps.png"
-                alt="Profile"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover rounded-full"
-                onError={(e) => { e.currentTarget.src = 'https://placehold.co/40x40/cccccc/000000?text=PS'; }}
-              />
+              <img src="/ps.png" alt="Profile" className="w-full h-full object-cover rounded-full" />
             </div>
           </div>
         </div>
+        
         <div className="flex-1 flex items-center justify-center p-6">
           <div className="bg-white shadow-xl p-8 rounded-[24px] w-[650px] min-h-[450px] flex flex-col items-center">
             <h2 className="text-5xl font-bold text-gray-900 mb-8 pt-4">Invite to Forum</h2>
             <div className="relative w-[270px] h-[140px] mb-10">
-              <CloudIcon
-                className="absolute text-[#6D6BA7]"
+              <Image
+                src={CloudIconSrc}
+                alt="Cloud"
+                width={217}
+                height={102}
+                className="absolute"
                 style={{
-                  width: '216.8px',
-                  height: '102px',
                   top: '34px',
                   left: '27.1px',
-                  filter: 'drop-shadow(0 0 5px rgba(109, 107, 167, 0.5))'
+                  filter: 'drop-shadow(0 0 5px rgba(109, 107, 167, 0.5))',
+                  color: '#6D6BA7'
                 }}
               />
-              <ChatbubblesSharpIcon
-                className="absolute text-[#C4C4C4]"
+              <Image
+                src={ChatbubblesSharpIconSrc}
+                alt="Chat bubbles"
+                width={107}
+                height={100}
+                className="absolute"
                 style={{
-                  width: '107px',
-                  height: '100px',
                   top: '0px',
                   left: '164px',
+                  color: '#C4C4C4'
                 }}
               />
             </div>
@@ -112,7 +126,13 @@ export default function InviteToForumPage() {
                   className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
                   aria-label="Copy link"
                 >
-                  <CopyIcon className="w-8 h-8" />
+                  <Image 
+                    src={CopyIconSrc} 
+                    alt="Copy" 
+                    width={32} 
+                    height={32}
+                    className="w-8 h-8"
+                  />
                 </button>
                 {copySuccess && (
                   <p className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-sm text-green-600 animate-fade-in-out">
