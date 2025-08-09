@@ -32,7 +32,7 @@ export default function PairPage() {
       
       <div className="flex-1 flex flex-col ml-64">
         
-        <div className="bg-gray-100 px-6 py-4 flex items-center justify-end">
+        <div className="bg-gray-1  00 px-6 py-4 flex items-center justify-end">
           <div className="flex items-center gap-4">
            
             <UserNotificationBell notificationCount={notificationCount} />
