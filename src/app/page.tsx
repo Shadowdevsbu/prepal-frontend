@@ -3,14 +3,14 @@
 
 import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
-import TimetableCard from './components/TimeTableCard'; // Ensure this path is correct based on your file structure (components vs app/components)
+import TimetableCard from './components/TimeTableCard'; 
 import StudyPalCard from './components/StudyPalCard';
 import LibraryCard from './components/LibraryCard';
-import ForumCard from './components/ForumCard'; // Corrected path based on previous prompt assuming structure, confirm this if it's wrong for you
+import ForumCard from './components/ForumCard'; 
 import { useState } from 'react'; 
-import UserNotificationBell from '@/app/components/UserNotificationBell'; // Import the new component
+import UserNotificationBell from '@/app/components/UserNotificationBell';
 
-// Define the type for the timetable entries managed in state
+
 interface DashboardTimetableEntry {
   time: Date;
   courseTitle: string;
@@ -39,7 +39,6 @@ export default function Home() {
     return d;
   };
 
-  // State for today's and tomorrow's timetable entries, allowing them to be null
   const [todayEntry, setTodayEntry] = useState<DashboardTimetableEntry | null>({
     time: createScheduledTime(today, 10, 0), 
     courseTitle: 'Calculus I',
@@ -54,8 +53,7 @@ export default function Home() {
     profilePhotos: ['/aj.png'], 
   });
 
-  // Example for dynamic notification count (can be updated later)
-  const [notificationCount, setNotificationCount] = useState(5); // Hardcoded for now
+  const [notificationCount, setNotificationCount] = useState(5);
 
   const handleDeleteDashboardTimetable = (id: string) => {
     if (id === 'today') {
@@ -73,7 +71,7 @@ export default function Home() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-[#2C2B54]">Dashboard</h1>
           <div className="flex items-center space-x-4">
-            {/* Replaced old bell icon with UserNotificationBell component */}
+          
             <UserNotificationBell notificationCount={notificationCount} />
             
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
