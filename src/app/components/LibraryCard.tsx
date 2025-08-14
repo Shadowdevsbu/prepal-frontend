@@ -1,6 +1,7 @@
 // src/components/LibraryCard.tsx
 import React from 'react';
 import { MdDescription, MdArrowForward } from 'react-icons/md'; 
+import Link from 'next/link'; 
 
 const LibraryCard: React.FC = () => {
   const popularCourses = [
@@ -32,13 +33,14 @@ const LibraryCard: React.FC = () => {
           ))}
         </div>
       </div>
-
+    <Link href="/library"> 
       <button className="flex items-center text-[#6D6BA7] font-medium text-sm hover:underline self-end"> 
         View All
         <span className="ml-1">
           <MdArrowForward size="1em" />
         </span>
       </button>
+    </Link>
     </div>
   );
 };

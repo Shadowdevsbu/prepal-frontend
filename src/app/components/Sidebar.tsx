@@ -27,10 +27,11 @@ const UserSidebar = () => {
   return (
     <aside className="w-64 bg-purple-1 h-screen p-6 flex flex-col justify-between fixed left-0 top-0 text-white shadow-lg z-10">
       <div>
-        <div className="flex items-center mb-10 pl-2">
+        {/* PrePal Logo and text are now a clickable link */}
+        <Link href="/" className="flex items-center mb-10 pl-2 cursor-pointer">
           <img src="/chat-left-dots-fill.png" alt="Preppal Logo" className="h-8 mr-2" />
           <span className="text-3xl font-bold">PrePal</span>
-        </div>
+        </Link>
 
         <nav>
           <ul>

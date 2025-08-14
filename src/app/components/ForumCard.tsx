@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdPlayCircleOutline, MdArrowForward } from 'react-icons/md';
+import Link from 'next/link'; 
 
 const ForumCard: React.FC = () => {
   const recentForumPosts = [
@@ -27,12 +28,15 @@ const ForumCard: React.FC = () => {
           ))}
         </div>
       </div>
+      <Link href="/forums">
       <button className="flex items-center text-[#6D6BA7] font-medium text-sm hover:underline self-end">
         View All Posts 
         <span className="ml-1">
           <MdArrowForward size="1em" />
         </span>
       </button>
+      </Link>
+
     </div>
   );
 };

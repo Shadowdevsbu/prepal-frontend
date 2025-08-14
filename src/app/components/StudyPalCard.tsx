@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { MdArrowForward } from 'react-icons/md';
-import Link from 'next/link'; // Import the Link component
+import Link from 'next/link'; 
 
 const StudyPalCard: React.FC = () => {
   return (
