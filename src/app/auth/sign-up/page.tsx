@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { axios } from '@/lib/api/axios';
+import { useAuthStore } from '@/store/authStore';
 
 const SignUpPage: React.FC = () => {
+  const {signUp, loading} = useAuthStore();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,9 +26,11 @@ const SignUpPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Sign-up form submitted:', formData);
+    const {password, ...userData} = formData;
+    const status = await signUp(userData, password);
+    if (status) router.push('/');
 
   };
 
@@ -34,7 +38,7 @@ const SignUpPage: React.FC = () => {
     <div className="flex h-screen items-center justify-center bg-white px-4 py-8">
       <div className="w-full max-w-sm rounded-[24px] bg-gray-50 p-6 shadow-xl">
         <h1 className="mb-6 text-center text-2xl font-bold text-[#2C2B54]">Create an Account</h1>
-        
+
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
             <label className="text-sm text-gray-700" htmlFor="name">Name</label>
@@ -87,7 +91,7 @@ const SignUpPage: React.FC = () => {
               required
             />
           </div>
-          
+
           <div>
             <label className="text-sm text-gray-700" htmlFor="course">Course</label>
             <input
@@ -113,12 +117,13 @@ const SignUpPage: React.FC = () => {
               required
             />
           </div>
-          
+
           <button
             type="submit"
+            disabled={loading}
             className="w-full rounded-[8px] bg-[#6D6BA7] py-2 text-sm font-semibold text-white transition-colors hover:bg-[#5C5A90] mt-4"
           >
-            Sign Up
+           {loading ? "Loading..." : "Sign Up"}
           </button>
         </form>
 

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar';
 import { MdSearch, MdDelete } from 'react-icons/md';
 import UserNotificationBell from '@/app/components/UserNotificationBell'; 
+import ProtectedRoute from '../ProtectedRoute';
 
 interface StudyPal {
     id: number;
@@ -34,9 +35,9 @@ export default function StudyPalsPage() {
 
     const [notificationCount, setNotificationCount] = useState(3); 
 
-    return (
-        <div className="flex">
-            <Sidebar />
+  return (
+    <div className="flex">
+      <Sidebar />
 
             <main className="flex-1 ml-64 p-6 bg-gray-100 min-h-screen">
                 {/* Header */}
@@ -75,56 +76,56 @@ export default function StudyPalsPage() {
                     </div>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {filteredStudyPals.length > 0 ? (
-                        filteredStudyPals.map((pal) => (
-                            <div
-                                key={pal.id}
-                                className="bg-white rounded-lg shadow-md p-4 flex items-center justify-between"
-                            >
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#6D6BA7]">
-                                        <img
-                                            src={pal.avatar}
-                                            alt={pal.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-lg text-gray-800">
-                                            {pal.name}
-                                        </h3>
-                                        <p
-                                            className={`text-sm ${
-                                                pal.status === 'online'
-                                                    ? 'text-green-500'
-                                                    : pal.status === 'offline'
-                                                    ? 'text-gray-500'
-                                                    : 'text-yellow-500'
-                                            }`}
-                                        >
-                                            {pal.status.charAt(0).toUpperCase() + pal.status.slice(1)}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <button
-                                        onClick={() => handleDeletePal(pal.id)}
-                                        className="w-8 h-8 rounded-md bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200 transition"
-                                        aria-label={`Delete ${pal.name}`}
-                                    >
-                                        <MdDelete size={16} />
-                                    </button>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-gray-600 col-span-full text-center">
-                            No study pals found.
-                        </p>
-                    )}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredStudyPals.length > 0 ? (
+            filteredStudyPals.map((pal) => (
+              <div
+                key={pal.id}
+                className="bg-white rounded-lg shadow-md p-4 flex items-center justify-between"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#6D6BA7]">
+                    <img
+                      src={pal.avatar}
+                      alt={pal.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-gray-800">
+                      {pal.name}
+                    </h3>
+                    <p
+                      className={`text-sm ${
+                        pal.status === 'online'
+                          ? 'text-green-500'
+                          : pal.status === 'offline'
+                          ? 'text-gray-500'
+                          : 'text-yellow-500'
+                      }`}
+                    >
+                      {pal.status.charAt(0).toUpperCase() + pal.status.slice(1)}
+                    </p>
+                  </div>
                 </div>
-            </main>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => handleDeletePal(pal.id)}
+                    className="w-8 h-8 rounded-md bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200 transition"
+                    aria-label={`Delete ${pal.name}`}
+                  >
+                    <MdDelete size={16} />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-600 col-span-full text-center">
+              No study pals found.
+            </p>
+          )}
         </div>
-    );
+      </main>
+    </div>
+  );
 }

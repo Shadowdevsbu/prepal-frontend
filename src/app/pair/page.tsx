@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar';
 import { MdShare } from 'react-icons/md';
 import UserNotificationBell from '@/app/components/UserNotificationBell'; 
+import ProtectedRoute from '../ProtectedRoute';
 
 export default function PairPage() {
   const [isPairing, setIsPairing] = useState(false);
@@ -25,6 +26,7 @@ export default function PairPage() {
   const [notificationCount, setNotificationCount] = useState(2);
 
   return (
+    <ProtectedRoute>
     <div className="flex h-screen bg-gray-100">
  
       <Sidebar />
@@ -143,5 +145,6 @@ export default function PairPage() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
