@@ -3,7 +3,6 @@
 
 import Sidebar from '../components/Sidebar';
 import Image from 'next/image';
-import { MdAdd } from 'react-icons/md';
 import React, { useState, useEffect, useCallback } from 'react';
 import TimetableItemCard from '../components/TimetableItemCard';
 import UserNotificationBell from '@/app/components/UserNotificationBell'; // Import the new component

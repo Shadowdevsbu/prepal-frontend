@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 w-full rounded-[8px] border border-gray-300 p-2 text-sm focus:border-[#6D6BA7] focus:outline-none focus:ring-1"
+              className="mt-1 w-full rounded-[8px] border border-gray-300 p-2 text-sm text-black focus:border-[#6D6BA7] focus:outline-none focus:ring-1"
               required
             />
           </div>
@@ -60,7 +60,7 @@ const LoginPage: React.FC = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 w-full rounded-[8px] border border-gray-300 p-2 text-sm focus:border-[#6D6BA7] focus:outline-none focus:ring-1"
+              className="mt-1 w-full rounded-[8px] border border-gray-300 p-2 text-sm text-black focus:border-[#6D6BA7] focus:outline-none focus:ring-1"
               required
             />
           </div>

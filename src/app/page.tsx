@@ -67,7 +67,7 @@ export default function Home() {
   };
 
   return (
-    <ProtectedRoute>
+     <ProtectedRoute>
       <div className="flex">
         <Sidebar />
 
