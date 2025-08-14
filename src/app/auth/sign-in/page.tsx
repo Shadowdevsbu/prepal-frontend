@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useAuthStore } from '@/store/authStore';
 
 const LoginPage: React.FC = () => {
+  const { login, loading } = useAuthStore();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,17 +21,22 @@ const LoginPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Login form submitted:', formData);
-
+    const status = await login(formData);
+    if (status) {
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
+    }
   };
+
 
   return (
     <div className="flex h-screen items-center justify-center bg-white px-4 py-8">
       <div className="w-full max-w-sm rounded-[24px] bg-gray-50 p-6 shadow-xl">
         <h1 className="mb-6 text-center text-2xl font-bold text-[#2C2B54]">Login to Account</h1>
-        
+
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
             <label className="text-sm text-gray-700" htmlFor="email">Email</label>
@@ -58,12 +64,13 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
-          
+
           <button
             type="submit"
-            className="w-full rounded-[8px] bg-[#6D6BA7] py-2 text-sm font-semibold text-white transition-colors hover:bg-[#5C5A90] mt-4"
+            disabled={loading}
+            className="w-full rounded-[8px] bg-[#6D6BA7] py-2 text-sm font-semibold text-white transition-colors hover:bg-[#5C5A90] mt-4 disabled:opacity-50"
           >
-            Sign in
+            {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 

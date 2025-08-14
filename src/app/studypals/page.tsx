@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Sidebar from '@/app/components/Sidebar';
 import { MdSearch, MdDelete } from 'react-icons/md';
 import UserNotificationBell from '@/app/components/UserNotificationBell'; 
+import ProtectedRoute from '../ProtectedRoute';
 
 interface StudyPal {
   id: number;
@@ -34,6 +35,7 @@ export default function StudyPalsPage() {
   const [notificationCount, setNotificationCount] = useState(3); 
 
   return (
+    <ProtectedRoute>
     <div className="flex">
       <Sidebar />
 
@@ -117,5 +119,6 @@ export default function StudyPalsPage() {
         </div>
       </main>
     </div>
+    </ProtectedRoute>
   );
 }
