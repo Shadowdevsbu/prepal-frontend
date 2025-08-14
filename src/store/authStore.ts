@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { axios } from '../lib/api/axios';
+import { toast } from 'react-toastify';
 
 interface User {
   id: string | null;
@@ -20,14 +21,17 @@ interface AuthState {
   verifyingEmail: string | null;
   resetEmail: string | null;
 
-  login: (email: string, password: string) => Promise<void>;
-  signUp: (user: User, password: string) => Promise<void>;
+  login: (credentials: { email: string; password: string }) => Promise<Boolean>;
+  signUp: (user: Omit<User, 'id' | 'role'>, password: string) => Promise<Boolean>;
   logout: () => void;
   setUser: (user: User | null) => void;
+  getUserProfile: () => Promise<void>;
 }
 
-const initialAccessToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
-const initialUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+const initialAccessToken =
+  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+const initialUser =
+  typeof window !== 'undefined' ? localStorage.getItem('user') : null;
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   access_token: initialAccessToken,
@@ -43,56 +47,47 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     try {
       const { data } = await axios.post('/auth/register', { ...user, password });
-      const userData: User = {
-        id: data.id || null,
-        email: data.email || null,
-        name: data.name || null,
-        department: data.department || null,
-        course: data.course || null,
-        level: data.level || null,
-        role: data.role || null,
-      };
-      set({ access_token: data.token, isAuthenticated: true, loading: false });
-      localStorage.setItem('authToken', data.token);
-      get().setUser(userData);
+      localStorage.setItem('access_token', data.access_token);
+      set({ access_token: data.access_token, isAuthenticated: true, loading: false });
+
+      get().setUser(data.user);
+      toast.success('Signup successful!');
+      return true;
     } catch (err: any) {
       set({
         loading: false,
         error: err?.response?.data?.message || 'Signup failed',
       });
+      toast.error(err?.response?.data?.message || 'Signup failed');
+      return false;
     }
   },
 
-  login: async (email, password) => {
+  login: async ({ email, password }) => {
     set({ loading: true, error: null });
 
     try {
       const { data } = await axios.post('/auth/login', { email, password });
+      localStorage.setItem('access_token', data.access_token);
+      set({ access_token: data.access_token, isAuthenticated: true, loading: false });
 
-      const userData: User = {
-        id: data.id || null,
-        email: data.email || null,
-        name: data.name || null,
-        department: data.department || null,
-        course: data.course || null,
-        level: data.level || null,
-        role: data.role || null,
-      };
+      get().setUser(data.user);
 
-      set({ access_token: data.token, isAuthenticated: true, loading: false });
-      localStorage.setItem('authToken', data.token);
-      get().setUser(userData);
+      toast.success('Login successful!');
+      return true;
     } catch (err: any) {
       set({
         loading: false,
         error: err?.response?.data?.message || 'Login failed',
       });
+      toast.error(err?.response?.data?.message || 'Login failed');
+      return false;
     }
   },
 
   logout: () => {
     set({ user: null, access_token: null, isAuthenticated: false });
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('access_token');
     localStorage.removeItem('user');
   },
 
@@ -102,6 +97,31 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       localStorage.setItem('user', JSON.stringify(user));
     } else {
       localStorage.removeItem('user');
+    }
+  },
+
+  getUserProfile: async () => {
+    try {
+      const token = get().access_token;
+      if (!token) return;
+
+      const { data } = await axios.get('/auth/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const userData: User = {
+        id: data.id || null,
+        email: data.email || null,
+        name: data.name || null,
+        department: data.department || null,
+        course: data.course || null,
+        level: data.level || null,
+        role: data.role || null,
+      };
+
+      get().setUser(userData);
+    } catch (error) {
+      console.error('Failed to fetch user profile', error);
     }
   },
 }));

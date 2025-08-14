@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { axios } from '@/lib/api/axios';
+import { useAuthStore } from '@/store/authStore';
 
 const SignUpPage: React.FC = () => {
+  const {signUp, loading} = useAuthStore();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,7 +28,9 @@ const SignUpPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = axios.post
+    const {password, ...userData} = formData;
+    const status = await signUp(userData, password);
+    if (status) router.push('/');
 
   };
 
@@ -116,9 +120,10 @@ const SignUpPage: React.FC = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full rounded-[8px] bg-[#6D6BA7] py-2 text-sm font-semibold text-white transition-colors hover:bg-[#5C5A90] mt-4"
           >
-            Sign Up
+           {loading ? "Loading..." : "Sign Up"}
           </button>
         </form>
 
