@@ -29,7 +29,7 @@ interface AuthState {
 }
 
 const initialAccessToken =
-  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+  typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
 const initialUser =
   typeof window !== 'undefined' ? localStorage.getItem('user') : null;
 
