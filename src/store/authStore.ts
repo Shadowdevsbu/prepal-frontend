@@ -25,11 +25,11 @@ interface AuthState {
   signUp: (user: Omit<User, 'id' | 'role'>, password: string) => Promise<Boolean>;
   logout: () => void;
   setUser: (user: User | null) => void;
-  getUserProfile: () => Promise<void>;
+  getUserProfile: () => Promise<User | null>;
 }
 
 const initialAccessToken =
-  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+  typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
 const initialUser =
   typeof window !== 'undefined' ? localStorage.getItem('user') : null;
 
@@ -100,28 +100,32 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  getUserProfile: async () => {
+  getUserProfile: async (): Promise<User | null> => {
     try {
       const token = get().access_token;
-      if (!token) return;
+      if (!token) return null;
 
       const { data } = await axios.get('/auth/profile', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
+      const u = data.user;
       const userData: User = {
-        id: data.id || null,
-        email: data.email || null,
-        name: data.name || null,
-        department: data.department || null,
-        course: data.course || null,
-        level: data.level || null,
-        role: data.role || null,
+        id: u.id || null,
+        email: u.email || null,
+        name: u.name || null,
+        department: u.department || null,
+        course: u.course || null,
+        level: u.level || null,
+        role: u.role || null,
       };
 
       get().setUser(userData);
+      return userData;
     } catch (error) {
       console.error('Failed to fetch user profile', error);
+      return null;
     }
   },
+
 }));
