@@ -19,36 +19,10 @@ interface ForumPost {
 
 type DisplayMode = 'list' | 'form';
 
-const dummyForums: ForumPost[] = [
-  {
-    title: 'Introduction to Phy101',
-    author: 'Alice Johnson',
-    content: 'A comprehensive guide to Phy101 for beginners, with tips and tricks to ace your exams.',
-    link: '/forums/phy101',
-    topicImage: '/phy.jpg',
-    profilePhotos: ['/ps.png', '/bob.jpg', '/diana.jpg'],
-  },
-  {
-    title: 'Operations Research Crash Course',
-    author: 'Bob Williams',
-    content: 'Operations Research is the science of decision-making, using mathematical models and analytical methods...',
-    link: '/forums/or',
-    topicImage: '/OR.jpg',
-    profilePhotos: ['/charlie.jpg', '/aj.png', '/alice.jpg'],
-  },
-  {
-    title: 'Database Design: How to create ERDs',
-    author: 'Charlie Davis',
-    content: 'Struggling with database design? This guide helps you understand and create Entity-Relationship Diagrams (ERDs)...',
-    link: '/forums/db-design',
-    topicImage: '/database.jpg',
-    profilePhotos: ['/aj.png', '/ps.png'],
-  },
-];
 
 export default function ForumsPage() {
   const [displayMode, setDisplayMode] = useState<DisplayMode>('list');
-  const [allForums, setAllForums] = useState<ForumPost[]>(dummyForums);
+  const [allForums, setAllForums] = useState<ForumPost[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
@@ -140,7 +114,7 @@ export default function ForumsPage() {
             </div>
             
             <div className="space-y-6">
-              {forumsToDisplay.map((forum, index) => (
+              {(forumsToDisplay.length > 0) ? forumsToDisplay.map((forum, index) => (
                 <TheForumsCard
                   key={index}
                   title={forum.title}
@@ -150,7 +124,7 @@ export default function ForumsPage() {
                   topicImage={forum.topicImage}
                   profilePhotos={forum.profilePhotos}
                 />
-              ))}
+              )) : <div>There are no forums to display</div>}
             </div>
           </div>
         )}
