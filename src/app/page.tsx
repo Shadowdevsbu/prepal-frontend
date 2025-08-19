@@ -56,6 +56,7 @@ export default function Home() {
     profilePhotos: ['/aj.png'],
   });
 
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [notificationCount, setNotificationCount] = useState(5);
 
   const handleDeleteDashboardTimetable = (id: string) => {
@@ -69,7 +70,7 @@ export default function Home() {
   return (
      <ProtectedRoute>
       <div className="flex">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
         <main className="flex-1 ml-64 p-8">
           <div className="flex justify-between items-center mb-8">

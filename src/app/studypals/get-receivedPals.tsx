@@ -74,7 +74,7 @@ export default function GetReceivedPreppals() {
 
   return (
     <main className="mt-8">
-      <h1 className="text-black text-2xl font-bold mb-6">Received Preppals</h1>
+      <h1 className="text-black text-2xl font-bold mb-6">Received Study pals</h1>
       <ul className="space-y-4">
         {receivedPreppals.length > 0 ? (
           receivedPreppals.map(pal => (

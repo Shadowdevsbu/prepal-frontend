@@ -13,6 +13,7 @@ export default function ProfilePage() {
     const [profileName, setProfileName] = useState('');
     const [profilePassword, setProfilePassword] = useState('');
     const [profilePicture, setProfilePicture] = useState('/ps.png'); 
+    const [isCollapsed, setIsCollapsed] = useState(false);
     const notificationCount = 3;
     const streakCount = 15;
 
@@ -47,7 +48,7 @@ export default function ProfilePage() {
 
     return (
         <div className="flex">
-            <Sidebar />
+            <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
             <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen">
                 {/* Header Section */}
                 <div className="flex justify-end items-center mb-8">

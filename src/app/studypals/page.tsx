@@ -1,32 +1,32 @@
 'use client';
 
+import React, { useState } from 'react';
 import Sidebar from '@/app/components/Sidebar';
 import ProtectedRoute from '../ProtectedRoute';
 import Header from './header';
-import GetSentPals from './get-sentPals';
-import GetReceivedPreppals from './get-receivedPals';
+import ToggleNav from './toggleNav';
 
 export default function StudyPalsPage() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <div className="flex">
       <ProtectedRoute>
-        <Sidebar />
+        {/* Sidebar with collapse control */}
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
-        <main className="flex-1 ml-64 p-6 bg-gray-100 min-h-screen">
+        {/* Main content that shifts with sidebar */}
+        <main
+          className={`flex-1 p-6 bg-gray-100 min-h-screen transition-all duration-300 ${
+            isCollapsed ? 'ml-20' : 'ml-64'
+          }`}
+        >
           {/* Header */}
           <Header />
 
-          {/* Responsive preppals container */}
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Sent Preppals (read-only) */}
-            <div className="flex-1">
-              <GetSentPals />
-            </div>
-
-            {/* Received Preppals (with Accept/Decline buttons) */}
-            <div className="flex-1">
-              <GetReceivedPreppals />
-            </div>
+          {/* Toggle Navigation for Sent / Received / Current */}
+          <div className="mt-6">
+            <ToggleNav />
           </div>
         </main>
       </ProtectedRoute>

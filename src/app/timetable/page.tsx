@@ -33,6 +33,7 @@ export default function TimetablePage() {
 
   // State to store the list of timetables
   const [timetables, setTimetables] = useState<TimetableEntry[]>([]);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Example for dynamic notification count (can be updated later)
   const [notificationCount, setNotificationCount] = useState(5); // Hardcoded for now
@@ -132,7 +133,7 @@ export default function TimetablePage() {
   if (isInitialLoad) {
     return (
       <div className="flex">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
         <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen flex items-center justify-center">
           Loading timetables...
         </main>
@@ -143,7 +144,7 @@ export default function TimetablePage() {
   return (
     <ProtectedRoute>
       <div className="flex">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
         <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen">
           {/* Page Header */}
           <div className="flex justify-between items-center mb-8">
