@@ -1,12 +1,10 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
-import Link from 'next/link'; 
+import React, { useState } from 'react';
 import Sidebar from '@/app/components/Sidebar';
 import { TbCheckbox } from 'react-icons/tb';
-import { MdFilterList, MdCheckBox } from 'react-icons/md';
-import UserNotificationBell from '@/app/components/UserNotificationBell'; 
+import { MdFilterList } from 'react-icons/md';
+import UserNotificationBell from '@/app/components/UserNotificationBell';
 
 interface Notification {
   id: number;
@@ -45,11 +43,15 @@ export default function NotificationsPage() {
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
       <main className="flex-1 ml-64 bg-gray-100 min-h-screen p-6">
-      
-        <div className="flex justify-end items-center mb-6">
-         
-          <UserNotificationBell notificationCount={notificationCount} />
-          
+        {/* Top right: notifications + profile */}
+        <div className="flex justify-end items-center mb-6 relative">
+          <UserNotificationBell />
+          {notificationCount > 0 && (
+            <span className="absolute top-0 right-12 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              {notificationCount}
+            </span>
+          )}
+
           <div className="ml-4 w-8 h-8 rounded-full overflow-hidden">
             <img
               src="/ps.png"
@@ -59,20 +61,22 @@ export default function NotificationsPage() {
           </div>
         </div>
 
+        {/* Page Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-black">Notifications</h1>
           <div className="flex items-center space-x-4">
             <button className="flex items-center space-x-2 text-sm text-black hover:text-[#444]">
-              <span className="font-semibold text-black">Filter</span>
+              <span className="font-semibold">Filter</span>
               <MdFilterList className="w-4 h-4 text-[#6D6BA7]" />
             </button>
             <button className="flex items-center space-x-2 text-sm text-black hover:text-[#444]">
-              <span className="font-semibold text-black">Mark all as read</span>
+              <span className="font-semibold">Mark all as read</span>
               <TbCheckbox className="w-4 h-4 text-[#6D6BA7]" />
             </button>
           </div>
         </div>
 
+        {/* Notification List */}
         <div className="space-y-4">
           {notifications.map((item) => (
             <div
@@ -81,8 +85,7 @@ export default function NotificationsPage() {
             >
               <div
                 className={`${item.color} w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold`}
-              >
-              </div>
+              />
               <div className="flex-1">
                 <p className="text-white font-medium">{item.message}</p>
                 <p className="text-gray-200 text-sm">{item.time}</p>

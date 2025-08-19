@@ -3,7 +3,7 @@
 
 import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
-import { MdSearch, MdAdd } from 'react-icons/md';
+import { MdSearch } from 'react-icons/md';
 import React, { useState } from 'react';
 import TheForumsCard from '@/app/components/TheForumsCard';
 import UserNotificationBell from '@/app/components/UserNotificationBell';

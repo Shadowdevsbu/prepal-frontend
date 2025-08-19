@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { MdSearch } from "react-icons/md";
 import UserNotificationBell from "@/app/components/UserNotificationBell";
 
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [notificationCount, setNotificationCount] = useState(3);
+  const notificationCount = 3; // ✅ simple static number
 
   return (
     <header className="w-full mb-6">
@@ -28,13 +26,11 @@ export default function Header() {
 
         {/* Right side (search + icons) */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 w-full md:w-auto">
-          {/* Search Bar (full width on mobile) */}
+          {/* Search Bar */}
           <div className="relative w-full sm:w-auto">
             <input
               type="text"
               placeholder="Search study pals..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full sm:w-48 md:w-64 bg-white px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6D6BA7] pr-10 placeholder:text-[#6D6BA7] text-[#6D6BA7]"
             />
             <MdSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#6D6BA7]" />
@@ -43,11 +39,9 @@ export default function Header() {
           {/* Notification bell with badge */}
           <div className="relative self-end sm:self-auto">
             <UserNotificationBell />
-            {notificationCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                {notificationCount}
-              </span>
-            )}
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              {notificationCount}
+            </span>
           </div>
 
           {/* Profile image */}
