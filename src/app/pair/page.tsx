@@ -3,17 +3,17 @@
 import React, { useState } from 'react';
 import Sidebar from '@/app/components/Sidebar';
 import { MdShare } from 'react-icons/md';
-import UserNotificationBell from '@/app/components/UserNotificationBell';
 import ProtectedRoute from '../ProtectedRoute';
 import { getSuggestions } from '@/lib/api/suggestions';
 import { sendPairingRequest } from '@/lib/api/send-requests';
 import { useAuthStore } from '@/store/authStore';
+import Header from './header'
 
 export default function PairPage() {
   const [partner, setPartner] = useState<{ id: string; name: string; initials: string } | null>(null);
   const [isPairing, setIsPairing] = useState(false);
   const [hasPaired, setHasPaired] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(2);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
 const handlePair = async () => {
   setIsPairing(true);
@@ -81,22 +81,11 @@ const handlePair = async () => {
   return (
     <ProtectedRoute>
       <div className="flex h-screen bg-gray-100">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
-        <div className="flex-1 flex flex-col ml-64">
+        <div className="flex-1 flex flex-col ml-64 p-4">
           {/* Top bar */}
-          <div className="bg-gray-100 px-6 py-4 flex items-center justify-end">
-            <div className="flex items-center gap-4">
-              <UserNotificationBell notificationCount={notificationCount} />
-              <div className="w-10 h-10 rounded-full overflow-hidden">
-                <img
-                  src="/ps.png"
-                  alt="Profile"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-            </div>
-          </div>
+          <Header />
 
           {/* Main content */}
           <div className="flex-1 flex items-center justify-center p-6">
