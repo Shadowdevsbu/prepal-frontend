@@ -15,7 +15,8 @@ export default function ProfilePage() {
     const [profileName, setProfileName] = useState('');
     const [profilePassword, setProfilePassword] = useState('');
     const [profilePicture, setProfilePicture] = useState('/ps.png');
-    const { user, getUserProfile , loading} = useAuthStore();
+    const { user, getUserProfile, loading } = useAuthStore();
+    const [isCollapsed, setIsCollapsed] = useState(false);
     const notificationCount = 3;
     const streakCount = 15;
 
@@ -78,7 +79,7 @@ export default function ProfilePage() {
     return (
         <ProtectedRoute>
             <div className="flex">
-                <Sidebar />
+                <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
                 <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen">
                     {/* Header Section */}
                     <div className="flex justify-end items-center mb-8">
@@ -131,7 +132,7 @@ export default function ProfilePage() {
                                     id="profileName"
                                     placeholder=""
                                     value={profileName}
-                                     disabled={loading}
+                                    disabled={loading}
                                     onChange={(e) => setProfileName(e.target.value)}
                                     className="w-full p-4 pl-6 pr-12 border-1 border-gray-300 rounded-3xl outline-none bg-gray-100 text-black font-semibold placeholder-gray-500"
                                 />
