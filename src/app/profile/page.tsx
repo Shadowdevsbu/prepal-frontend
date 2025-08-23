@@ -84,7 +84,7 @@ export default function ProfilePage() {
                             <label htmlFor="profile-picture-upload" className="absolute bottom-1 right-1 p-2 bg-white rounded-full border border-gray-300 shadow-md cursor-pointer">
                                 <MdCameraAlt size={20} className="text-gray-600" />
                                 <input
-                                    id="profile-picture-upload"
+                                    id="profile-picture-upload" 
                                     type="file"
                                     accept="image/*"
                                     onChange={handleProfilePictureChange}
