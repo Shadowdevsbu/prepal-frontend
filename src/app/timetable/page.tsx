@@ -41,7 +41,32 @@ export default function TimetablePage() {
   // Notification count (connect to your notification API later)
   const [notificationCount] = useState(5);
 
+<<<<<<< HEAD
   // Simple and reliable initialization logic
+=======
+  // State to store the list of timetables
+  const [timetables, setTimetables] = useState<TimetableEntry[]>([]);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Example for dynamic notification count (can be updated later)
+  const [notificationCount, setNotificationCount] = useState(5); // Hardcoded for now
+
+  // Function to load timetables from localStorage
+  const loadTimetables = useCallback(() => {
+    const storedTimetables = localStorage.getItem('userTimetables');
+    if (storedTimetables) {
+      const parsedTimetables: TimetableEntry[] = JSON.parse(storedTimetables);
+      const sortedTimetables = parsedTimetables.sort((a, b) => b.createdAt - a.createdAt);
+      setTimetables(sortedTimetables);
+      return sortedTimetables.length > 0;
+    } else {
+      setTimetables([]);
+      return false;
+    }
+  }, []);
+
+  // Effect to determine initial display mode and load timetables
+>>>>>>> 445755d13a807dd6b98f961da74e50b4950191b9
   useEffect(() => {
     console.log('DEBUG COMPONENT - isInitialized:', isInitialized);
     console.log('DEBUG COMPONENT - isLoading:', isLoading);
@@ -173,7 +198,7 @@ export default function TimetablePage() {
   if (!isInitialized || (isLoading && displayMode === null)) {
     return (
       <div className="flex">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
         <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen flex items-center justify-center">
           <div className="flex flex-col items-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-1 mb-6"></div>
@@ -188,7 +213,7 @@ export default function TimetablePage() {
   return (
     <ProtectedRoute>
       <div className="flex">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
         <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen">
           {/* Header Component */}
           <TimetableHeader 

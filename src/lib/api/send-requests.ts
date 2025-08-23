@@ -28,8 +28,11 @@ export async function sendPairingRequest(recipientId: string, course: string) {
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error sending pairing request:", error);
-    throw new Error(error?.response?.data?.message || "Failed to send pairing request");
+    if (error && typeof error === "object" && "response" in error && error.response && typeof error.response === "object" && "data" in error.response && error.response.data && typeof error.response.data === "object" && "message" in error.response.data) {
+      throw new Error((error.response as { data: { message?: string } }).data?.message || "Failed to send pairing request");
+    }
+    throw new Error("Failed to send pairing request");
   }
 }

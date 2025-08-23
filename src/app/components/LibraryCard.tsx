@@ -1,7 +1,7 @@
 // src/components/LibraryCard.tsx
 import React from 'react';
 import { MdDescription, MdArrowForward } from 'react-icons/md'; 
-import Link from 'next/link'; 
+import Link from 'next/link';
 
 const LibraryCard: React.FC = () => {
   const popularCourses = [

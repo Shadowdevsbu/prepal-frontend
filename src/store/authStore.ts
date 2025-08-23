@@ -53,12 +53,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       get().setUser(data.user);
       toast.success('Signup successful!');
       return true;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      let errorMessage = 'Signup failed';
+      if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response && err.response.data && typeof err.response.data === 'object' && 'message' in err.response.data) {
+        errorMessage = (err.response as { data: { message?: string } }).data.message || errorMessage;
+      }
       set({
         loading: false,
-        error: err?.response?.data?.message || 'Signup failed',
+        error: errorMessage,
       });
-      toast.error(err?.response?.data?.message || 'Signup failed');
+      toast.error(errorMessage);
       return false;
     }
   },
@@ -75,12 +79,26 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
       toast.success('Login successful!');
       return true;
-    } catch (err: any) {
+    } catch (err: unknown) {
+      let errorMessage = 'Login failed';
+      if (
+        err &&
+        typeof err === 'object' &&
+        'response' in err &&
+        err.response &&
+        typeof err.response === 'object' &&
+        'data' in err.response &&
+        err.response.data &&
+        typeof err.response.data === 'object' &&
+        'message' in err.response.data
+      ) {
+        errorMessage = (err.response as { data: { message?: string } }).data.message || errorMessage;
+      }
       set({
         loading: false,
-        error: err?.response?.data?.message || 'Login failed',
+        error: errorMessage,
       });
-      toast.error(err?.response?.data?.message || 'Login failed');
+      toast.error(errorMessage);
       return false;
     }
   },
