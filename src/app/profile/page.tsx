@@ -14,8 +14,8 @@ import { useAuthStore } from '@/store/authStore';
 export default function ProfilePage() {
     const [profileName, setProfileName] = useState('');
     const [profilePassword, setProfilePassword] = useState('');
-    const [profilePicture, setProfilePicture] = useState('/ps.png');
-    const { user, getUserProfile , loading} = useAuthStore();
+    const [profilePicture, setProfilePicture] = useState('/ps.png'); 
+    const [isCollapsed, setIsCollapsed] = useState(false);
     const notificationCount = 3;
     const streakCount = 15;
 
@@ -76,17 +76,15 @@ export default function ProfilePage() {
         );
     }
     return (
-        <ProtectedRoute>
-            <div className="flex">
-                <Sidebar />
-                <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen">
-                    {/* Header Section */}
-                    <div className="flex justify-end items-center mb-8">
-                        <div className="flex items-center space-x-6">
-                            <UserNotificationBell notificationCount={notificationCount} />
-                            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                                <Image src="/ps.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" />
-                            </div>
+        <div className="flex">
+            <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+            <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen">
+                {/* Header Section */}
+                <div className="flex justify-end items-center mb-8">
+                    <div className="flex items-center space-x-6">
+                        <UserNotificationBell notificationCount={notificationCount} />
+                        <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                            <Image src="/ps.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" />
                         </div>
                     </div>
 

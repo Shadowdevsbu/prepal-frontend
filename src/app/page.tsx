@@ -1,5 +1,4 @@
-// src/app/page.tsx
-"use client"
+"use client";
 
 import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
@@ -12,7 +11,6 @@ import UserNotificationBell from '@/app/components/UserNotificationBell';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from './ProtectedRoute';
-
 
 interface DashboardTimetableEntry {
   time: Date;
@@ -56,7 +54,8 @@ export default function Home() {
     profilePhotos: ['/aj.png'],
   });
 
-  const [notificationCount, setNotificationCount] = useState(5);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [notificationCount] = useState(5);
 
   const handleDeleteDashboardTimetable = (id: string) => {
     if (id === 'today') {
@@ -67,25 +66,37 @@ export default function Home() {
   };
 
   return (
-     <ProtectedRoute>
+    <ProtectedRoute>
       <div className="flex">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
         <main className="flex-1 ml-64 p-8">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold text-[#2C2B54]">Dashboard</h1>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 relative">
+              {/* Bell + Badge */}
+              <UserNotificationBell />
+              {notificationCount > 0 && (
+                <span className="absolute top-0 right-12 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {notificationCount}
+                </span>
+              )}
 
-              <UserNotificationBell notificationCount={notificationCount} />
-
+              {/* Profile */}
               <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                <Image src="/ps.png" alt="Profile" width={40} height={40} className="w-full h-full object-cover" />
+                <Image
+                  src="/ps.png"
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
 
+          {/* Cards grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
             <TimetableCard
               id="today"
               title="Today's Timetable"
@@ -100,17 +111,19 @@ export default function Home() {
               entry={tomorrowEntry}
               onDelete={handleDeleteDashboardTimetable}
             />
-            <div className='col-span-full'>
+
+            <div className="col-span-full">
               <StudyPalCard />
             </div>
-            <div className='col-span-full'>
+            <div className="col-span-full">
               <LibraryCard />
             </div>
-            <div className='col-span-full'>
+            <div className="col-span-full">
               <ForumCard />
             </div>
           </div>
         </main>
+
         <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </ProtectedRoute>

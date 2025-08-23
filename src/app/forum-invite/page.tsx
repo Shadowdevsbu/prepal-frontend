@@ -14,6 +14,7 @@ export default function InviteToForumPage() {
   const [copySuccess, setCopySuccess] = useState('');
   const [notificationCount] = useState(2);
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleCopy = async () => {
     try {
@@ -37,7 +38,7 @@ export default function InviteToForumPage() {
   return (
     <ProtectedRoute>
       <div className="flex h-screen bg-gray-100">
-        <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
         <div className="flex-1 flex flex-col ml-64">
           {/* The updated header with the button on the far left */}
           <div className="bg-gray-100 px-6 py-4 flex items-center justify-between">

@@ -3,7 +3,7 @@
 
 import Sidebar from '@/app/components/Sidebar';
 import Image from 'next/image';
-import { MdSearch, MdAdd } from 'react-icons/md';
+import { MdSearch } from 'react-icons/md';
 import React, { useState } from 'react';
 import TheForumsCard from '@/app/components/TheForumsCard';
 import UserNotificationBell from '@/app/components/UserNotificationBell';
@@ -28,6 +28,7 @@ export default function ForumsPage() {
   const [formDescription, setFormDescription] = useState('');
   const [forumDate, setForumDate] = useState('');
   const [forumTime, setForumTime] = useState('');
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const notificationCount = 5;
 
@@ -77,7 +78,7 @@ export default function ForumsPage() {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <main className="flex-1 ml-64 p-8 bg-gray-100 min-h-screen">
         {/* Page Header with Nav Components */}
         <div className="flex justify-between items-center mb-8">
