@@ -42,8 +42,15 @@ const handleApiError = (error: unknown): never => {
 
 // Helper function to get auth headers (if using authentication)
 const getAuthHeaders = () => {
-  // Replace this with your actual auth token logic
-  const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  // Note: Using localStorage/sessionStorage is not recommended in production
+  // Consider using secure HTTP-only cookies or other secure storage methods
+  let token: string | null = null;
+  
+  try {
+    token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  } catch (error) {
+    console.warn('Could not access browser storage:', error);
+  }
   
   return {
     'Content-Type': 'application/json',
@@ -74,7 +81,7 @@ export class TimetableApiService {
 
       return result.data || [];
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -98,7 +105,7 @@ export class TimetableApiService {
 
       return result.data || [];
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -122,7 +129,7 @@ export class TimetableApiService {
 
       return result.data || [];
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -156,7 +163,7 @@ export class TimetableApiService {
 
       return result.data;
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -190,7 +197,7 @@ export class TimetableApiService {
 
       return result.data;
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -212,7 +219,7 @@ export class TimetableApiService {
         throw new Error(result.error || 'Failed to delete timetable');
       }
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -240,7 +247,7 @@ export class TimetableApiService {
 
       return result.data;
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 }
