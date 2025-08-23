@@ -30,7 +30,14 @@ const handleApiError = (error: unknown): never => {
   
   if (typeof error === 'object' && error !== null && 'response' in error) {
     // Server responded with error status
-    throw new Error((error as any).response.data?.message || 'Server error occurred');
+    throw new Error(
+      (typeof error === 'object' &&
+        error !== null &&
+        'response' in error &&
+        typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message === 'string')
+        ? (error as { response: { data: { message: string } } }).response.data.message
+        : 'Server error occurred'
+    );
   } else if (typeof error === 'object' && error !== null && 'request' in error) {
     // Request was made but no response received
     throw new Error('Network error - please check your connection');
