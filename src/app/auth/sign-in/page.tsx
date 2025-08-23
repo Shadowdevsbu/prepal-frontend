@@ -21,15 +21,13 @@ const LoginPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const status = await login(formData);
     if (status) {
-      setTimeout(() => {
         router.push("/");
-      }, 1000);
     }
-  };
+};
 
 
   return (

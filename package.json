@@ -9,15 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "axios": "^1.11.0",
+    "lucide-react": "^0.541.0",
     "nestjs": "^0.0.1",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-toastify": "^11.0.5",
-    "zustand": "^5.0.7",
-    "@svgr/webpack": "^8.1.0"
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
